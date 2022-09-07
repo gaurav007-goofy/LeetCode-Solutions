@@ -21,26 +21,30 @@
  */
 class Solution {
 public:
-    TreeNode* construct(vector<int>arr,int s,int e)
+    TreeNode *sortedListToBST(ListNode *head)
     {
-        if(s>e)
-            return NULL;
-        int mid = s+(e-s)/2;
-        TreeNode* root = new TreeNode(arr[mid]);
-        root->left = construct(arr,s,mid-1);
-        root->right = construct(arr,mid+1,e);
-        
-        return root;
+    	return sortedListToBST( head, NULL );
     }
-    TreeNode* sortedListToBST(ListNode* head) {
-        vector<int>arr;
-        ListNode* curr = head;
-        while(curr)
-        {
-            arr.push_back(curr->val);
-            curr = curr->next;
-        }
-        
-        return construct(arr,0,arr.size()-1);
+    
+private:
+    TreeNode *sortedListToBST(ListNode *head, ListNode *tail)
+    {
+    	if( head == tail )
+    		return NULL;
+    	if( head->next == tail )    // 
+    	{	
+    		TreeNode *root = new TreeNode( head->val );
+    		return root;
+    	}
+    	ListNode *mid = head, *temp = head;
+    	while( temp != tail && temp->next != tail )    // 寻找中间节点
+    	{
+    		mid = mid->next;
+    		temp = temp->next->next;
+    	}
+    	TreeNode *root = new TreeNode( mid->val );
+    	root->left = sortedListToBST( head, mid );
+    	root->right = sortedListToBST( mid->next, tail );
+    	return root;
     }
 };
