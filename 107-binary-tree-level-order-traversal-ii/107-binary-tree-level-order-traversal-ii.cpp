@@ -11,11 +11,18 @@
  */
 class Solution {
 public:
+    int depth(TreeNode *root) {
+        if (!root) return 0;
+        return max(depth(root->left),depth(root->right))+1;
+    }
     vector<vector<int>> levelOrderBottom(TreeNode* root) {
         if(root==NULL)
             return {};
-        vector<vector<int>>ans;
-        stack<vector<int>>st;
+        
+        int level = depth(root);
+        
+        vector<vector<int>>ans(level);
+    
         queue<TreeNode*>q;
         q.push(root);
         while(!q.empty())
@@ -30,16 +37,12 @@ public:
                 if(node->left)
                     q.push(node->left);
                 if(node->right)
-                    q.push(node->right);
-                
+                    q.push(node->right); 
             }
-            st.push(v);
+            ans[level-1] = v;
+            level--;
         }
-        while(!st.empty())
-        {
-            ans.push_back(st.top());
-            st.pop();
-        }
+        
         return ans;
     }
 };
