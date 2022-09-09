@@ -30,6 +30,18 @@ public:
         return s.size()-lps[s.size()-1];
     }
     bool repeatedSubstringPattern(string s) {
+        // bastard's solution
+        
+//         int n=s.size();
+//        string mix=s+s;  //Adding string with it self
+
+//        for(int i=1;i<n;i++)
+//        {
+//          string str=mix.substr(i,n);
+//          if(str==s) 
+//               return true;
+//        }
+//         return false;
         
         int n = s.size();
         set<char>st;
