@@ -11,37 +11,40 @@
  */
 class Solution {
 public:
-    unordered_map<int,int>mp;
+    int cnt =0;   // to store current count
+    int prev = -1;  // to store prev element
+    int max_count = INT_MIN;  // to store max count
     
-    void dfs(TreeNode* root)
+    void solve(TreeNode* root,vector<int>& ans)
     {
         if(!root)
             return;
-        dfs(root->left);
-        mp[root->val]++;
-        dfs(root->right);
+        
+        solve(root->left,ans);    // left traversal
+        
+        if(root->val==prev)
+            cnt++;
+        else cnt = 1;
+        
+        prev = root->val;
+        
+        if(cnt> max_count)
+        {
+            max_count = cnt;
+            ans.clear();
+            ans.push_back(root->val);
+        }
+        else if(cnt == max_count)
+        {
+            ans.push_back(root->val);
+        }
+        
+        solve(root->right,ans);    // right traversal
     }
     vector<int> findMode(TreeNode* root) {
-        if(!root)
-            return {};
-        mp.clear();
-        
-        dfs(root);
-        
         vector<int>ans;
-        
-        int maxx =INT_MIN;
-        for(auto it:mp)
-        {
-            maxx = max(maxx,it.second);
-        }
-        for(auto it:mp)
-        {
-            if(it.second==maxx)
-                ans.push_back(it.first);
-        }
+        solve(root,ans);
         
         return ans;
-        
     }
 };
