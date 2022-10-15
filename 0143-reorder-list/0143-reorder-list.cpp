@@ -10,6 +10,8 @@
  */
 class Solution {
 public:
+    // idea here is to take the first half as it is and reverse the second half , then 
+    //  rearrange accordingly
     
     ListNode* reverse(ListNode* head)
     {
@@ -36,7 +38,7 @@ public:
             fast = fast->next->next;
         }
         
-        ListNode* newHead = reverse(slow->next);
+        ListNode* newHead = reverse(slow->next);   // reverse the second half
         slow->next = NULL;
         
         ListNode* curr1 = head, *curr2 = newHead;
@@ -44,8 +46,8 @@ public:
         ListNode* nxt1=NULL, *nxt2 = NULL;
         while(curr1 && curr2)
         {
-            nxt1 = curr1->next;
-            nxt2 = curr2->next;
+            nxt1 = curr1->next;  // to store the next node in first half
+            nxt2 = curr2->next;  // to store the next node in second half
             
             curr1->next = curr2;
             curr2->next = nxt1;
