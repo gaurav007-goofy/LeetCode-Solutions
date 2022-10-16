@@ -29,7 +29,7 @@ public:
         
         for(int i=0;i<root->children.size();i++)
         {
-            solve(root->children[i],depth+1);
+            solve(root->children[i],depth+1);  // don't use depth++ ;
         }
     }
     int maxDepth(Node* root) {
