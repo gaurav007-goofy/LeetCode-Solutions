@@ -11,32 +11,47 @@
  */
 class Solution {
 public:
-    vector<int> rightSideView(TreeNode* root) {
+    vector<int>res;
+    void solve(TreeNode* root,int level)
+    {
         if(!root)
-            return {};
-        vector<int>ans;
+            return;
+        if(res.size()==level)    // to push only rightmost element
+            res.push_back(root->val);
         
-        queue<TreeNode*>q;
-        q.push(root);
-        while(!q.empty())
-        {
-            int len = q.size();
-            for(int i=0;i<len;i++)
-            {
-                TreeNode* temp = q.front();
-                q.pop();
-                if(i==len-1)
-                    ans.push_back(temp->val);
+        solve(root->right,level+1);
+        solve(root->left,level+1);
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        res.clear();
+        solve(root,0);
+        
+        return res;
+        
+        // level-order traversal
+//         if(!root)
+//             return {};
+//         vector<int>ans;
+        
+//         queue<TreeNode*>q;
+//         q.push(root);
+//         while(!q.empty())
+//         {
+//             int len = q.size();
+//             for(int i=0;i<len;i++)
+//             {
+//                 TreeNode* temp = q.front();
+//                 q.pop();
+//                 if(i==len-1)
+//                     ans.push_back(temp->val);
                 
-                if(temp->left)
-                    q.push(temp->left);
-                if(temp->right)
-                    q.push(temp->right);
-            }
-        }
+//                 if(temp->left)
+//                     q.push(temp->left);
+//                 if(temp->right)
+//                     q.push(temp->right);
+//             }
+//         }
         
-        return ans;
-        
-        return ans;
+//         return ans;
     }
 };
