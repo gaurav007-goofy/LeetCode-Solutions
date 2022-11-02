@@ -1,14 +1,24 @@
 class Solution {
 public:
     int distributeCandies(vector<int>& candyType) {
-        int canEat = candyType.size()/2;
+        // solution using bitset
+        int n = candyType.size();
+        bitset<200001> hash;
+        for (int i: candyType)
+           hash.set(i + 100000);
+        int count = hash.count();
         
-        unordered_set<int>st;
-        for(auto type:candyType)
-        {
-            st.insert(type);
-        }
+        return min(count, n / 2);
         
-        return canEat<st.size() ? canEat : st.size();
+        
+//         int canEat = candyType.size()/2;
+        
+//         unordered_set<int>st;
+//         for(auto type:candyType)
+//         {
+//             st.insert(type);
+//         }
+        
+//         return canEat<st.size() ? canEat : st.size();
     }
 };
