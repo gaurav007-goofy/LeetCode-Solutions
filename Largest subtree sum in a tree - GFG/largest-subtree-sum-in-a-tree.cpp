@@ -87,10 +87,6 @@ class Solution {
     {
         if(!root)
             return 0;
-            
-        // if(!root->left && !root->right)
-        //     return root->data;
-        
         
         int curr_sum = root->data + dfs(root->left) + dfs(root->right);
         
